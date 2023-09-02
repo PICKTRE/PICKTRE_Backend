@@ -1,0 +1,58 @@
+package BAESOOJIN.PICKTRE.service;
+
+import BAESOOJIN.PICKTRE.domain.member.Member;
+import BAESOOJIN.PICKTRE.domain.order.Order;
+import BAESOOJIN.PICKTRE.domain.order.OrderItem;
+import BAESOOJIN.PICKTRE.domain.product.Product;
+import BAESOOJIN.PICKTRE.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class OrderService {
+
+    private final OrderRepository orderRepository;
+    private final MemberService memberService;
+    private final OrderItemService orderItemService;
+
+    /**
+     * 주문 생성
+     *
+     * @param memberId       주문자 ID
+    //     * @param productIds     상품 ID 목록
+    //     * @param quantities     상품 수량 목록
+     * @param useRewardPoints 리워드 포인트 사용 여부
+     * @return 생성된 주문 엔티티
+     */
+    public Order createOrder(Long memberId, Long productId, Integer quantity, boolean useRewardPoints) {
+        Member member = memberService.getMember(memberId);
+
+        OrderItem orderItem = orderItemService.createOrderItem(product, quantity);
+
+        Order order = new Order();
+        order.setBuyer(member);
+        order.addOrderItem(orderItem);
+        order.setUseRewardPoints(useRewardPoints);
+        // 주문 생성
+        Order createdOrder = orderRepository.save(order);
+
+        return createdOrder;
+    }
+
+    // 주문에 필요한 총 리워드 포인트 계산
+    private int calculateTotalRewardPointsNeeded(OrderItem orderItem) {
+        return orderItem.getProduct().getPrice() * orderItem.getQuantity();
+    }
+
+
+    private void updateProductQuantity(Product product, int quantity) {
+        int updatedQuantity = product.getQuantity() - quantity;
+        if (updatedQuantity < 0) {
+            throw new RuntimeException("Not enough products in stock");
+        }
+        product.setQuantity(updatedQuantity);
+    }
+}
