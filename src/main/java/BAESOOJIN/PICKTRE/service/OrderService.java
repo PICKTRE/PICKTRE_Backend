@@ -5,6 +5,7 @@ import BAESOOJIN.PICKTRE.domain.order.Order;
 import BAESOOJIN.PICKTRE.domain.order.OrderItem;
 import BAESOOJIN.PICKTRE.domain.product.Product;
 import BAESOOJIN.PICKTRE.repository.OrderRepository;
+import BAESOOJIN.PICKTRE.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,8 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final MemberService memberService;
+    private final ProductService productService;
+    private final ProductRepository productRepository;
     private final OrderItemService orderItemService;
 
     /**
@@ -29,7 +32,7 @@ public class OrderService {
      */
     public Order createOrder(Long memberId, Long productId, Integer quantity, boolean useRewardPoints) {
         Member member = memberService.getMember(memberId);
-
+        Product product = productService.getProduct(productId);
         OrderItem orderItem = orderItemService.createOrderItem(product, quantity);
 
         Order order = new Order();
