@@ -40,6 +40,7 @@ public class MemberService {
      * @return 생성된 사용자 엔티티
      */
     public Member createMember(Member member) {
+        update_Tier(member);
         return memberRepository.save(member);
     }
 
@@ -99,6 +100,54 @@ public class MemberService {
 
         // 회원 삭제
         memberRepository.delete(memberToDelete);
+    }
+
+
+    public void updateTodayReward() {
+        List<Member> all = memberRepository.findAll();
+        for(Member member:all) {
+            member.resetTodayReward();
+        }
+    }
+
+    public void update_Tier(Member member) {
+        int currReward=member.getRewardPoints();
+        if(currReward>=50000) {
+            upgrade_Tier1(member);
+        }
+        else if(currReward>=20000) {
+            upgrade_Tier2(member);
+        }
+        else if(currReward>=7000) {
+            upgrade_Tier3(member);
+        }
+        else if(currReward>=4000) {
+            upgrade_Tier4(member);
+        }
+        else {
+            upgrade_Tier5(member);
+        }
+    }
+    // 다른 사용자 관련 서비스 메소드 추가 가능
+
+    public void upgrade_Tier1(Member member) {
+        member.setTierPath(tier1);
+    }
+
+    public void upgrade_Tier2(Member member) {
+        member.setTierPath(tier2);
+    }
+
+    public void upgrade_Tier3(Member member) {
+        member.setTierPath(tier3);
+    }
+
+    public void upgrade_Tier4(Member member) {
+        member.setTierPath(tier4);
+    }
+
+    public void upgrade_Tier5(Member member) {
+        member.setTierPath(tier5);
     }
 
 }
