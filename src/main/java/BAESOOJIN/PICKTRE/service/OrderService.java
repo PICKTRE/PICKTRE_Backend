@@ -6,6 +6,7 @@ import BAESOOJIN.PICKTRE.domain.order.OrderItem;
 import BAESOOJIN.PICKTRE.domain.product.Product;
 import BAESOOJIN.PICKTRE.repository.OrderRepository;
 import BAESOOJIN.PICKTRE.repository.ProductRepository;
+import BAESOOJIN.PICKTRE.transaction.RewardTransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class OrderService {
     private final ProductService productService;
     private final ProductRepository productRepository;
     private final OrderItemService orderItemService;
+
+    private final RewardTransactionService rewardTransactionService;
 
     /**
      * 주문 생성
@@ -40,6 +43,15 @@ public class OrderService {
         order.addOrderItem(orderItem);
         order.setUseRewardPoints(useRewardPoints);
 
+        // 리워드 포인트 차감 로직 추가
+        if (useRewardPoints) {
+            int totalRewardPointsNeeded = calculateTotalRewardPointsNeeded(orderItem);
+            if (member.getRewardPoints() >= totalRewardPointsNeeded) {
+                rewardTransactionService.useRewardPoints(member, product.getName(),quantity,totalRewardPointsNeeded);
+            } else {
+                throw new RuntimeException("Not enough reward points");
+            }
+        }
 
         // 주문 생성
         Order createdOrder = orderRepository.save(order);
