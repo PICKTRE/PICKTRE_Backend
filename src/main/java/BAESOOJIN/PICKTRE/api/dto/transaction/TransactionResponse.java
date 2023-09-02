@@ -1,4 +1,4 @@
-package BAESOOJIN.PICKTRE.api.transaction;
+package BAESOOJIN.PICKTRE.api.dto.transaction;
 
 import BAESOOJIN.PICKTRE.transaction.RewardTransaction;
 import lombok.Data;
