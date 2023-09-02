@@ -39,8 +39,15 @@ public class OrderService {
         order.setBuyer(member);
         order.addOrderItem(orderItem);
         order.setUseRewardPoints(useRewardPoints);
+
+
         // 주문 생성
         Order createdOrder = orderRepository.save(order);
+
+        // 주문이 생성되었을 때 상품의 수량 감소
+        if (createdOrder != null) {
+            updateProductQuantity(orderItem.getProduct(), orderItem.getQuantity());
+        }
 
         return createdOrder;
     }
