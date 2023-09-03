@@ -1,6 +1,7 @@
 package BAESOOJIN.PICKTRE.auth;
 
 import BAESOOJIN.PICKTRE.api.dto.auth.GoogleOAuthTokenDto;
+import BAESOOJIN.PICKTRE.api.dto.auth.GoogleUserInfoDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -55,4 +56,11 @@ public class GoogleAuth {
         GoogleOAuthTokenDto googleOAuthTokenDto = objectMapper.readValue(response.getBody(), GoogleOAuthTokenDto.class);
         return googleOAuthTokenDto;
     }
+
+    public GoogleUserInfoDto getUserInfo(ResponseEntity<String> response) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        GoogleUserInfoDto googleUserInfoDto = objectMapper.readValue(response.getBody(),GoogleUserInfoDto.class);
+        return googleUserInfoDto;
+    }
+
 }
