@@ -1,0 +1,9 @@
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE PEN', 3000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-32%20001.png',1);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE Bracelet', 5000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-33%20005.png',12);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE SpringNote', 4000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-50.png',143);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE Gray T-Shirt', 10000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-32%20002.png',100);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE Original cup', 15000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-33%20003.png',5);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE Ecobag', 10000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-33%20004.png',4);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE Key ring', 8000, 50,'https://kr.object.ncloudstorage.com/picktreimages/product/KakaoTalk_Photo_2023-08-22-15-40-33%20006.png',21);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE 5000원권', 5000, 50,'https://kr.object.ncloudstorage.com/picktreimages/%EC%83%81%ED%92%88%EA%B6%8C/KakaoTalk_Photo_2023-08-26-23-48-53%20002.png',21);
+INSERT INTO product (name, price, quantity,image_path,view_Count) VALUES ('PICKTRE 10000원권', 10000, 50,'https://kr.object.ncloudstorage.com/picktreimages/%EC%83%81%ED%92%88%EA%B6%8C/KakaoTalk_Photo_2023-08-26-23-48-52%20001.png',0);
