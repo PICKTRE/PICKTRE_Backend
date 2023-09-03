@@ -63,4 +63,12 @@ public class GoogleAuth {
         return googleUserInfoDto;
     }
 
+    public String getOauthRedirectURL() {
+        String reqUrl = googleLoginUrl + "/o/oauth2/v2/auth?client_id=" + googleClientId + "&redirect_uri=" + googleRedirectUrl
+                + "&response_type=code&scope=email%20profile%20openid&access_type=offline";
+
+        return reqUrl;
+    }
+
+
 }
