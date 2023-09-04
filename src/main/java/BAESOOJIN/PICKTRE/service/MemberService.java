@@ -40,7 +40,7 @@ public class MemberService {
      * @return 생성된 사용자 엔티티
      */
     public Member createMember(Member member) {
-        update_Tier(member);
+        updateTier(member);
         return memberRepository.save(member);
     }
 
@@ -55,8 +55,7 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("Member not found"));
 
         // 업데이트할 정보 적용
-        existingMember.setMail(member.getMail());
-        existingMember.setRewardPoints(member.getRewardPoints());
+        existingMember.updateMember(member.getMail(),member.getRewardPoints());
 
         // 업데이트된 정보 저장 및 반환
         return memberRepository.save(existingMember);
@@ -103,6 +102,9 @@ public class MemberService {
     }
 
 
+    /**
+     * 하루 동안 적립한 Reward Reset
+     */
     public void updateTodayReward() {
         List<Member> all = memberRepository.findAll();
         for(Member member:all) {
@@ -110,44 +112,21 @@ public class MemberService {
         }
     }
 
-    public void update_Tier(Member member) {
-        int currReward=member.getRewardPoints();
-        if(currReward>=50000) {
-            upgrade_Tier1(member);
-        }
-        else if(currReward>=20000) {
-            upgrade_Tier2(member);
-        }
-        else if(currReward>=7000) {
-            upgrade_Tier3(member);
-        }
-        else if(currReward>=4000) {
-            upgrade_Tier4(member);
-        }
-        else {
-            upgrade_Tier5(member);
+    public void updateTier(Member member) {
+        int currReward = member.getRewardPoints();
+
+        if (currReward >= 50000) {
+            member.updateMemberTier(tier1);
+        } else if (currReward >= 20000) {
+            member.updateMemberTier(tier2);
+        } else if (currReward >= 7000) {
+            member.updateMemberTier(tier3);
+        } else if (currReward >= 4000) {
+            member.updateMemberTier(tier4);
+        } else {
+            member.updateMemberTier(tier5);
         }
     }
-    // 다른 사용자 관련 서비스 메소드 추가 가능
-
-    public void upgrade_Tier1(Member member) {
-        member.setTierPath(tier1);
-    }
-
-    public void upgrade_Tier2(Member member) {
-        member.setTierPath(tier2);
-    }
-
-    public void upgrade_Tier3(Member member) {
-        member.setTierPath(tier3);
-    }
-
-    public void upgrade_Tier4(Member member) {
-        member.setTierPath(tier4);
-    }
-
-    public void upgrade_Tier5(Member member) {
-        member.setTierPath(tier5);
-    }
+    // 다른 사용자 관련 서비스 메소드 추가 가
 
 }
