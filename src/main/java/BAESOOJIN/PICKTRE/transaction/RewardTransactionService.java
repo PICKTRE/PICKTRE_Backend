@@ -22,8 +22,13 @@ public class RewardTransactionService {
      * @param points 적립할 포인트
      */
     public void earnRewardPoints(Member member, String productName, int productCount, int points) {
-        LocalDateTime transactionDateTime = LocalDateTime.now();
-        RewardTransaction transaction = new RewardTransaction(member,productName,productCount,points, transactionDateTime);
+        RewardTransaction transaction= RewardTransaction.builder()
+                .member(member)
+                .productName(productName)
+                .productCount(productCount)
+                .points(points)
+                .transactionDateTime(LocalDateTime.now())
+                .build();
         rewardTransactionRepository.save(transaction);
         member.addRewardPoints(points);
     }
@@ -35,8 +40,13 @@ public class RewardTransactionService {
      * @param member                  회원
      */
     public void useRewardPoints(Member member, String productName, int productCount, int points) {
-        LocalDateTime transactionDateTime = LocalDateTime.now();
-        RewardTransaction transaction = new RewardTransaction(member,productName,productCount, -points, transactionDateTime);
+        RewardTransaction transaction= RewardTransaction.builder()
+                .member(member)
+                .productName(productName)
+                .productCount(productCount)
+                .points(-points)
+                .transactionDateTime(LocalDateTime.now())
+                .build();
         rewardTransactionRepository.save(transaction);
         member.deductRewardPoints(points);
     }

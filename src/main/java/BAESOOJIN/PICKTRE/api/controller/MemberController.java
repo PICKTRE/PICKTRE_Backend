@@ -24,7 +24,10 @@ public class MemberController {
     private final ResponseService responseService;
 
 
-
+    /**
+     * Member 전체 조회
+     * @return
+     */
     @GetMapping
     public ListResult<MemberResponse> findAllUser(){
         List<Member> members = memberService.getAllMembers();
@@ -32,6 +35,11 @@ public class MemberController {
         return responseService.getListResult(memberResponseList);
     }
 
+    /**
+     * Member 단일 조회
+     * @param msrl Member 고유 ID
+     * @return 성공 DTO
+     */
     @GetMapping("/{msrl}")
     public SingleResult<MemberResponse> findUserById(@PathVariable Long msrl) {
         Member member = memberService.getMember(msrl);
@@ -48,6 +56,12 @@ public class MemberController {
 //        return responseService.getSuccessResult();
 //    }
 
+    /**
+     * Member 수정
+     * @param msrl Member 고유 ID
+     * @param memberRequest Member 수정 Request
+     * @return 성공 DTO
+     */
     @PutMapping("/{msrl}")
     public SingleResult<MemberResponse> updateMember(@PathVariable Long msrl, @RequestBody MemberRequest memberRequest) {
         Member memberToUpdate = memberService.getMember(msrl);
@@ -58,12 +72,21 @@ public class MemberController {
         return responseService.getSingleResult(memberResponse);
     }
 
+    /**
+     * member 삭제
+     * @param msrl Member 고유 ID
+     * @return 성공 DTO
+     */
     @DeleteMapping("/{msrl}")
     public CommonResult deleteMember(@PathVariable Long msrl) {
         memberService.deleteMember(msrl);
         return responseService.getSuccessResult();
     }
 
+    /**
+     * 24시간 후 Member reward 초기화
+     * @return 성공 DTO
+     */
     @GetMapping("/reset")
     public CommonResult updateAll() {
         memberService.updateTodayReward();

@@ -19,6 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 
+    /**
+     * CORS 문제 해결을 위한 Config
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.httpBasic(HttpBasicConfigurer::disable)

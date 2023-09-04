@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -36,7 +38,12 @@ public class OrderService {
         Product product = productService.getProduct(productId);
         OrderItem orderItem = orderItemService.createOrderItem(product, quantity);
 
-        Order order = new Order(member);
+        Order order= Order.builder()
+                .member(member)
+                .localDateTime(LocalDateTime.now())
+                .totalPrice(0)
+                .build();
+
         order.addOrderItem(orderItem);
         order.setUseRewardPoints(useRewardPoints);
 

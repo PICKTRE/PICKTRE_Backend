@@ -89,19 +89,38 @@ public class Member {
         }
     }
 
+    /**
+     * Member 정보 수정
+     * @param mail
+     * @param rewardPoint
+     */
     public void updateMember(String mail,int rewardPoint) {
         this.mail=mail;
         this.rewardPoints=rewardPoint;
     }
 
+    /**
+     * MemberTier 수정
+     * @param tierPath
+     */
     public void updateMemberTier(String tierPath) {
         this.tierPath=tierPath;
     }
 
+
+    /**
+     * Member Mail 수정
+     * @param mail
+     */
     public void setMail(String mail) {
         this.mail=mail;
     }
 
+
+    /**
+     * Member 쓰레기 버린 횟수 수정
+     * @param count
+     */
     public void setTrashCount(int count) {
         this.trashCount=count;
     }

@@ -24,6 +24,10 @@ public class S3Config {
     @Value("${cloud.aws.s3.endpoint}")
     private String endPoint;
 
+    /**
+     * Naver Storage Object Key 들 설정
+     * @return
+     */
     @Bean
     public AmazonS3Client amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,secretKey);

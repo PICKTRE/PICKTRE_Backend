@@ -26,6 +26,12 @@ public class OAuthService {
     private final MemberRepository memberRepository;
     private String access_Token_user;
 
+    /**
+     * API 로 부터 GoogleUserInfo를 받아옴
+     * @param code API 로 받은 Code
+     * @return Google user 반환
+     * @throws JsonProcessingException
+     */
     private GoogleUserInfoDto getGoogleUserInfoDto(String code) throws JsonProcessingException {
         ResponseEntity<String> accessTokenResponse = googleAuth.requestAccessToken(code);
         GoogleOAuthTokenDto oAuthToken = googleAuth.getAccessToken(accessTokenResponse);
@@ -34,6 +40,11 @@ public class OAuthService {
         GoogleUserInfoDto googleUser = googleAuth.getUserInfo(userInfoResponse);
         return googleUser;
     }
+
+    /**
+     * 중복된 Member 검사
+     * @param mail 같은 Mail 있는지 확인
+     */
     private void validateDuplicateMember(String mail) {
         Optional<Member> memberByMail = memberRepository.findMemberByMail(mail);
         if(!memberByMail.isEmpty()) {
@@ -41,6 +52,13 @@ public class OAuthService {
         }
     }
 
+
+    /**
+     * 실질적인 구글 로그인
+     * @param code API 로 부터 받아온 code
+     * @return redirectURL
+     * @throws IOException
+     */
     public String googleLogin(String code) throws IOException
     {
         GoogleUserInfoDto googleUser = getGoogleUserInfoDto(code);

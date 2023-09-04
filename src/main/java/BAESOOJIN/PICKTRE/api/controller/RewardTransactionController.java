@@ -22,7 +22,11 @@ public class RewardTransactionController {
     private final RewardTransactionService rewardTransactionService;
     private final ResponseService responseService;
 
-
+    /**
+     * Member 단일별 사용내역 조회
+     * @param msrl
+     * @return
+     */
     @GetMapping("/{msrl}")
     public ListResult<TransactionResponse> getRewardTransactionsForMember(@PathVariable Long msrl) {
         List<RewardTransaction> transactions = rewardTransactionService.getTransactionsForMember(msrl);

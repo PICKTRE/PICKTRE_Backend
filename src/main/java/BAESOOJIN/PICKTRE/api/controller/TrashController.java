@@ -21,6 +21,12 @@ public class TrashController {
     private final ResponseService responseService;
     private final RewardTransactionService rewardTransactionService;
 
+
+    /**
+     * Reward 적립 기능
+     * @param trashRequest 적립시 필요한 DTO
+     * @return 성공 DTO
+     */
     @PostMapping
     public CommonResult updateTrashReward(@RequestBody TrashRequest trashRequest) {
         Member findMember = memberService.getMember(trashRequest.getMemberId());
