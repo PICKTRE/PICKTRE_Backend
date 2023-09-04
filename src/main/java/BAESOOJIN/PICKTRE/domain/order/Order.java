@@ -43,10 +43,10 @@ public class Order {
      * @param member
      */
     @Builder
-    public Order(Member member) {
+    public Order(Member member,LocalDateTime localDateTime,int totalPrice) {
         this.buyer=member;
-        this.orderDate = LocalDateTime.now();
-        this.totalPrice = 0;
+        this.orderDate = localDateTime;
+        this.totalPrice = totalPrice;
     }
 
 
