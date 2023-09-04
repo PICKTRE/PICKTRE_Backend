@@ -22,9 +22,13 @@ import java.util.List;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderItemService orderItemService;
     private final ResponseService responseService;
 
+    /**
+     * Ordre 생성
+     * @param orderRequest Order 생성 하기 위한 DTO
+     * @return 성공 DTO
+     */
     @PostMapping
     public CommonResult createOrder(@RequestBody OrderRequest orderRequest) {
         Order createdOrder = orderService.createOrder(orderRequest.getMemberId(),
