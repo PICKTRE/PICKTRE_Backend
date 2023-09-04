@@ -27,13 +27,21 @@ public class OrderItem {
     private int quantity; // 주문한 상품의 수량
 
 
+    /**
+     * 기본 생성자
+     * @param product
+     * @param quantity
+     */
     public OrderItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
 
-    // 주문한 상품의 소계 가격 계산
+    /**
+     * 주문한 상품의 소계 가격 계산
+     * @return
+     */
     public int getSubtotal() {
         return product.getPrice() * quantity;
     }
