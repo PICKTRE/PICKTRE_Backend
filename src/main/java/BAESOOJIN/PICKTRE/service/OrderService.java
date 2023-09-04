@@ -19,9 +19,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberService memberService;
     private final ProductService productService;
-    private final ProductRepository productRepository;
     private final OrderItemService orderItemService;
-
     private final RewardTransactionService rewardTransactionService;
 
     /**
@@ -38,8 +36,7 @@ public class OrderService {
         Product product = productService.getProduct(productId);
         OrderItem orderItem = orderItemService.createOrderItem(product, quantity);
 
-        Order order = new Order();
-        order.setBuyer(member);
+        Order order = new Order(member);
         order.addOrderItem(orderItem);
         order.setUseRewardPoints(useRewardPoints);
 
@@ -64,17 +61,28 @@ public class OrderService {
         return createdOrder;
     }
 
-    // 주문에 필요한 총 리워드 포인트 계산
+
+    /**
+     * 주문에 필요한 총 리워드 포인트 계산
+     *
+     * @param orderItem
+     * @return
+     */
     private int calculateTotalRewardPointsNeeded(OrderItem orderItem) {
         return orderItem.getProduct().getPrice() * orderItem.getQuantity();
     }
 
-
+    /**
+     * 주문 시 Product Quantity 수정
+     *
+     * @param product
+     * @param quantity
+     */
     private void updateProductQuantity(Product product, int quantity) {
         int updatedQuantity = product.getQuantity() - quantity;
         if (updatedQuantity < 0) {
             throw new RuntimeException("Not enough products in stock");
         }
-        product.setQuantity(updatedQuantity);
+        product.updateQuantity(updatedQuantity);
     }
 }

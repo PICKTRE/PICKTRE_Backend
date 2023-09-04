@@ -26,7 +26,7 @@ public class TrashController {
         Member findMember = memberService.getMember(trashRequest.getMemberId());
         findMember.setTrashCount(findMember.getTrashCount()+1);
         rewardTransactionService.earnRewardPoints(findMember,trashRequest.getTrashName(),1,trashRequest.getReward());
-        memberService.update_Tier(findMember);
+        memberService.updateTier(findMember);
         return responseService.getSuccessResult();
     }
 

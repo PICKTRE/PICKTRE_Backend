@@ -3,6 +3,8 @@ package BAESOOJIN.PICKTRE.api.dto.product;
 import BAESOOJIN.PICKTRE.domain.product.Product;
 import lombok.Data;
 
+import java.util.Optional;
+
 @Data
 public class ProductResponse {
 

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -48,19 +49,10 @@ public class ProductController {
      */
     @GetMapping("/{msrl}")
     public SingleResult<ProductResponse> findProductById(@PathVariable Long msrl) {
-        Product product = productService.getProduct(msrl);
-        productService.updateViewCount(product) ;
+        Product product = productService.updateViewCount(msrl);
         ProductResponse productResponse = ProductResponse.toDto(product);
         return responseService.getSingleResult(productResponse);
     }
-
-//    @GetMapping("/{keyword}")
-//    public ListResult<ProductResponse> findProduct(@PathVariable String keyword) {
-//        List<Product> products = productService.searchProduct(keyword);
-//        List<ProductResponse> productResponses = products.stream().map(ProductResponse::toDto).collect(Collectors.toList());
-//        return responseService.getListResult(productResponses);
-//    }
-
 
 
     /**
@@ -93,7 +85,7 @@ public class ProductController {
      */
     @PutMapping("/{msrl}")
     public SingleResult<ProductResponse> updateProduct(@PathVariable Long msrl,@RequestBody ProductRequest productRequest) {
-        Product product = productService.updateProductQuantity(msrl, productRequest);
+        Product product = productService.updateProduct(msrl, productRequest);
         ProductResponse productResponse = ProductResponse.toDto(product);
         return responseService.getSingleResult(productResponse);
     }

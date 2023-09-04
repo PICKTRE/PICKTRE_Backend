@@ -24,7 +24,6 @@ public class OAuthService {
     private final GoogleAuth googleAuth;
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-    private final ResponseService responseService;
     private String access_Token_user;
 
     private GoogleUserInfoDto getGoogleUserInfoDto(String code) throws JsonProcessingException {

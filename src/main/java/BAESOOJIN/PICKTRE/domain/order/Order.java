@@ -3,7 +3,9 @@ package BAESOOJIN.PICKTRE.domain.order;
 import BAESOOJIN.PICKTRE.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-@Setter
+@NoArgsConstructor
 @Table(name = "orders")
 public class Order {
 
@@ -36,24 +38,42 @@ public class Order {
 
     // Constructors, getters, setters, and other methods
 
-    // 기본 생성자
-    public Order() {
+    /**
+     * 기본 생성자
+     * @param member
+     */
+    @Builder
+    public Order(Member member) {
+        this.buyer=member;
         this.orderDate = LocalDateTime.now();
         this.totalPrice = 0;
     }
 
-    // 주문에 상품을 추가하고 관계 설정
+
+    /**
+     * 주문에 상품을 추가하고 관계 설정
+     * @param orderItem
+     */
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
         calculateTotalPrice();
     }
 
-    // 주문한 상품들의 가격을 합산하여 총 가격 계산
+    /**
+     * 주문한 상품들의 가격을 합산하여 총 가격 계산
+     */
     public void calculateTotalPrice() {
         this.totalPrice = orderItems.stream().mapToInt(OrderItem::getSubtotal).sum();
     }
 
 
+    /**
+     * RewardPoints 사용 여부 Setter
+     * @param useRewardPoints
+     */
+    public void setUseRewardPoints(boolean useRewardPoints) {
+        this.useRewardPoints=useRewardPoints;
+    }
     // 다른 주문 관련 메소드도 추가 가능
 }

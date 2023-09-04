@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Getter
-@Setter
 public class Member {
 
     @Id
@@ -41,8 +40,12 @@ public class Member {
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orders = new HashSet<>();
 
-
-    // Constructor
+    /**
+     * 기본 생성자
+     * @param mail
+     * @param userName
+     * @param picture
+     */
     @Builder
     public Member(String mail,String userName,String picture) {
         this.mail=mail;
@@ -54,25 +57,53 @@ public class Member {
         this.memberTier=MemberTier.TIER1;
     }
 
-    // Method to add reward points
+
+    /**
+     * Reward Point 추가 메소드
+     * @param points
+     */
     public void addRewardPoints(int points) {
         this.rewardPoints += points;
         this.todayReward+=points;
     }
 
-    // Method to subtract reward points
+
+    /**
+     * Reward Point 감소 메소드
+     * @param points
+     */
     public void deductRewardPoints(int points) {
         this.rewardPoints -= points;
         this.todayReward-=points;
     }
 
 
+    /**
+     * 24시간 마다 수동으로 Reset
+     */
     public void resetTodayReward() {
         LocalDate currentDate = LocalDate.now();
         if (lastRewardResetDate == null || !lastRewardResetDate.isEqual(currentDate)) {
             todayReward = 0;
             lastRewardResetDate = currentDate;
         }
+    }
+
+    public void updateMember(String mail,int rewardPoint) {
+        this.mail=mail;
+        this.rewardPoints=rewardPoint;
+    }
+
+    public void updateMemberTier(String tierPath) {
+        this.tierPath=tierPath;
+    }
+
+    public void setMail(String mail) {
+        this.mail=mail;
+    }
+
+    public void setTrashCount(int count) {
+        this.trashCount=count;
     }
 
     // Other methods for managing rewards, orders, etc.
