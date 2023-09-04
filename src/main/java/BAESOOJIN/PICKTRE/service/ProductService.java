@@ -2,6 +2,7 @@ package BAESOOJIN.PICKTRE.service;
 
 import BAESOOJIN.PICKTRE.api.dto.product.ProductRequest;
 import BAESOOJIN.PICKTRE.domain.product.Product;
+import BAESOOJIN.PICKTRE.exception.ProductNotFoundException;
 import BAESOOJIN.PICKTRE.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -46,25 +49,33 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
+    /**
+     * 인기 별 모든 상품 목록 조회
+     *
+     * @return 상품 엔티티 목록
+     */
     public List<Product> getAllProductsByViewCount() {
         return productRepository.findAll(Sort.by(Sort.Direction.DESC,"viewCount"));
     }
 
     /**
-     * 상품 재고 수량 업데이트
+     * 상품 업데이트
      *
      * @param productId 상품 ID
-    //     * @param quantity  업데이트할 재고 수량
+     * @param productRequest 상품 update Request
+     *
      * @return 업데이트된 상품 엔티티
      */
-    public Product updateProductQuantity(Long productId, ProductRequest productRequest) {
+    public Product updateProduct(Long productId, ProductRequest productRequest) {
 
         Product existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        existingProduct.setName(productRequest.getProductName());
-        existingProduct.setPrice(productRequest.getPrice());
-        existingProduct.setQuantity(productRequest.getQuantity());
+        existingProduct.updateProduct(productRequest.getProductName(),
+                productRequest.getPrice(),
+                productRequest.getQuantity());
+
         return productRepository.save(existingProduct);
     }
 
@@ -103,8 +114,24 @@ public class ProductService {
         return productRepository.findByNameContaining(keyword);
     }
 
-    public void updateViewCount(Product product) {
-        int tempCount=product.getViewCount();
-        product.setViewCount(tempCount+1);
+
+    /**
+     * 조회수 증가 기능
+     * @param productId 상품 고유 ID
+     * @return 고유 ID 로 찾은 상품 Entity
+     */
+    public Product updateViewCount(Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            int currentViewCount = product.getViewCount();
+            product.addViewCount(currentViewCount + 1);
+            productRepository.save(product); // 변경사항을 저장합니다.
+        } else {
+            throw new ProductNotFoundException("Product not found with ID: " + productId);
+        }
+
+        return optionalProduct.get();
     }
 }
