@@ -26,6 +26,14 @@ public class Product {
 
     private int viewCount;
 
+    /**
+     * Product 기본 생성자
+     * @param name
+     * @param imagePath
+     * @param price
+     * @param quantity
+     * @param viewCount
+     */
     @Builder
     public Product(String name,String imagePath,int price, int quantity,int viewCount) {
         this.name = name;
@@ -35,16 +43,30 @@ public class Product {
         this.viewCount=viewCount;
     }
 
+    /**
+     * Product 수정
+     * @param name
+     * @param price
+     * @param quantity
+     */
     public void updateProduct(String name,int price,int quantity) {
         this.name=name;
         this.price=price;
         this.quantity=quantity;
     }
 
+    /**
+     * Product 재고 수정
+     * @param quantity
+     */
     public void updateQuantity(int quantity) {
         this.quantity=quantity;
     }
 
+    /**
+     * Product 조회수 수정
+     * @param viewCount
+     */
     public void addViewCount(int viewCount) {
         this.viewCount=viewCount;
     }
