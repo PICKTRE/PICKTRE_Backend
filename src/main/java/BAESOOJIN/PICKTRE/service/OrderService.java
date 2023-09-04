@@ -83,6 +83,6 @@ public class OrderService {
         if (updatedQuantity < 0) {
             throw new RuntimeException("Not enough products in stock");
         }
-        product.setQuantity(updatedQuantity);
+        product.updateQuantity(updatedQuantity);
     }
 }
