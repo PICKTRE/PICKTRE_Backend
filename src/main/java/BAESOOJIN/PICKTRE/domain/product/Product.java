@@ -12,7 +12,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Product {
 
@@ -33,6 +32,16 @@ public class Product {
         this.imagePath=imagePath;
         this.price = price;
         this.quantity = quantity;
+        this.viewCount=viewCount;
+    }
+
+    public void updateProduct(String name,int price,int quantity) {
+        this.name=name;
+        this.price=price;
+        this.quantity=quantity;
+    }
+
+    public void addViewCount(int viewCount) {
         this.viewCount=viewCount;
     }
 }
