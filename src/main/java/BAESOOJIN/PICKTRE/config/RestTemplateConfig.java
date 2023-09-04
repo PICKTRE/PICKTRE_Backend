@@ -13,6 +13,11 @@ import java.nio.charset.Charset;
 @Configuration
 public class RestTemplateConfig {
 
+    /**
+     * Google Login API 를 위해 Web Setting
+     * @param restTemplateBuilder
+     * @return
+     */
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder){
         return restTemplateBuilder
