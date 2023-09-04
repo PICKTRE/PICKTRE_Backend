@@ -14,7 +14,6 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @Getter
-@Setter
 public class Member {
 
     @Id
