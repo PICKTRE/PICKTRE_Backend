@@ -4,6 +4,7 @@ package BAESOOJIN.PICKTRE.transaction;
 import BAESOOJIN.PICKTRE.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,16 @@ public class RewardTransaction {
     private LocalDateTime transactionDateTime; // 트랜잭션 일시
 
 
+    /**
+     * RewardTransaction 기본 생성자
+     * @param member
+     * @param productName
+     * @param productCount
+     * @param points
+     * @param transactionDateTime
+     */
+
+    @Builder
     public RewardTransaction(Member member,String productName,int productCount, int points, LocalDateTime transactionDateTime) {
         this.member = member;
         this.productName=productName;
