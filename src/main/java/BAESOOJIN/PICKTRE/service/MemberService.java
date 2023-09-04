@@ -112,6 +112,10 @@ public class MemberService {
         }
     }
 
+    /**
+     * Member Reward 별 Tier 이미지 변경
+     * @param member
+     */
     public void updateTier(Member member) {
         int currReward = member.getRewardPoints();
 
