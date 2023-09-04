@@ -33,6 +33,8 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberTier memberTier;
 
+    private String tierPath;
+
     private LocalDate lastRewardResetDate;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -85,6 +87,23 @@ public class Member {
             todayReward = 0;
             lastRewardResetDate = currentDate;
         }
+    }
+
+    public void updateMember(String mail,int rewardPoint) {
+        this.mail=mail;
+        this.rewardPoints=rewardPoint;
+    }
+
+    public void updateMemberTier(String tierPath) {
+        this.tierPath=tierPath;
+    }
+
+    public void setMail(String mail) {
+        this.mail=mail;
+    }
+
+    public void setTrashCount(int count) {
+        this.trashCount=count;
     }
 
     // Other methods for managing rewards, orders, etc.
