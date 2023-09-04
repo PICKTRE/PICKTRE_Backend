@@ -35,7 +35,7 @@ public class MemberController {
     @GetMapping("/{msrl}")
     public SingleResult<MemberResponse> findUserById(@PathVariable Long msrl) {
         Member member = memberService.getMember(msrl);
-        memberService.update_Tier(member);
+        memberService.updateTier(member);
         MemberResponse memberResponse = MemberResponse.toDto(member);
         return responseService.getSingleResult(memberResponse);
     }
