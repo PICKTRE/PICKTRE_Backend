@@ -41,6 +41,10 @@ public class Product {
         this.quantity=quantity;
     }
 
+    public void updateQuantity(int quantity) {
+        this.quantity=quantity;
+    }
+
     public void addViewCount(int viewCount) {
         this.viewCount=viewCount;
     }
