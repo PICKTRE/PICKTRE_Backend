@@ -107,9 +107,9 @@ nohup 사용 명령어 X
 java -jar Test.jar 
 ```
 
-## 3. 흐름도
+## 3. 아키텍처
 
-<img width="395" alt="스크린샷 2023-09-05 오후 10 44 53" src="https://github.com/PICKTRE/PICKTRE_backend/assets/101933437/b5f26106-6a14-41f4-87d7-bdcb6cf970b7">
+<img width="386" alt="스크린샷 2023-09-05 오후 11 42 35" src="https://github.com/PICKTRE/PICKTRE_backend/assets/101933437/c7c7ebb7-2727-4373-a9f7-4d513815cf9d">
 
 
 
