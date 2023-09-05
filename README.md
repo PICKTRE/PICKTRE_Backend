@@ -121,9 +121,8 @@ java -jar Test.jar
 
 ## 5. 오픈소스
 
-[APACHE License](LICENSE)
-
-[Let's Encrypt License](https://spdx.org/licenses/CC-BY-NC-4.0)
++ [APACHE License](LICENSE)
++ [Let's Encrypt License](https://spdx.org/licenses/CC-BY-NC-4.0 "Let's Encrypth")
 
 
  
